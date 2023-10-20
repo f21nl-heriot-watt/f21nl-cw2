@@ -1,0 +1,149 @@
+[project]
+name = "f21nl-template"
+version = "0.1.0"
+description = "Template for F21NL"
+authors = [
+    {name = "Amit Parekh", email = "7276308+amitkparekh@users.noreply.github.com"},
+]
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+    "lightning>=2.1.0",
+    "torchmetrics>=1.2.0",
+    "torch!=2.0.1,!=2.1.0",
+    "httpx>=0.25.0",
+    "loguru>=0.7.2",
+    "tokenizers>=0.14.1",
+]
+
+[tool.pdm]
+plguins = ["pdm-autoexport", "sync-pre-commit-lock"]
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "black>=23.9.1",
+    "ruff>=0.0.292",
+    "toml-sort>=0.23.1",
+    "pre-commit>=3.5.0",
+    "commitizen>=3.10.1",
+    "docformatter>=1.7.5",
+]
+
+[[tool.pdm.autoexport]]
+filename = "requirements.txt"
+groups = ["default"]
+# Because hashes might be confusing for some people
+without-hashes = true
+
+[tool.pdm.scripts]
+pre_install = "pdm install --plugins"
+
+[tool.black]
+line-length = 99
+
+[tool.ruff]
+# Only enable rules that are automatic (to prevent overwhelm from IDEs shouting at you)
+fix-only = false
+ignore = [
+    # Do not enforce annotations for self, cls, or similar
+    "ANN1",
+    # Do not block using 'Any' type since it happens
+    "ANN401",
+    # Allow function call as argument default
+    "B008",
+    # Let Black handle commas
+    "COM",
+    # Don't ask for docstring at top of module --- put it in the functions/classes
+    "D100",
+    # Do not check for docstring within __init__ method
+    "D107",
+    # Don't ask about line length, Black recommends using bugbear B950 instead
+    "E501",
+    # Disable 'flake8-errmsg' because we assume users of this project can read tracebacks
+    "EM",
+    # Disable flagging commented-out code because it's false-positives on shape comments
+    "ERA001",
+    # Allow TODO comments
+    "FIX002",
+    # Let logging use f-strings
+    "G004",
+    # Allow import to be uppercase, because torch.nn.functional as F
+    "N812",
+    # Allow assigning variables before returning them
+    "RET504",
+    # Allow asserts to be used because they're just convenient for type-narrowing.
+    # Type-narrowing is more important than the possibility that someone is running python
+    # with -O (in optimized mode).
+    # https://stackoverflow.com/a/68429294
+    "S101",
+    # Don't care about requiring an author name or issue link for a todo
+    "TD002",
+    "TD003",
+    # We don't need to care about creating separate exception classes for every single type of
+    # error
+    "TRY003",
+]
+# Avoid automatically removing unused imports from `__init__.py` files
+ignore-init-module-imports = true
+# Set the line-length to the same as Black
+line-length = 99
+# Select every possible rule that we can
+select = ["ALL"]
+# Minimum Python version to consider when checking
+target-version = "py311"
+unfixable = [
+    # Do not auto-remove commented out code
+    "ERA001",
+    # Do not remove unused imports
+    # "F401",
+    # Do not remove unused variables
+    "F841",
+]
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.flake8-type-checking]
+exempt-modules = ["pydantic_numpy", "typing", "typing_extensions"]
+runtime-evaluated-base-classes = [
+    "pydantic.BaseModel",
+    "pydantic.generics.GenericModel",
+]
+
+# Automatically sort imports
+[tool.ruff.isort]
+combine-as-imports = true
+known-first-party = ["f21nl"]
+lines-after-imports = 2
+
+[tool.ruff.per-file-ignores]
+"src/**/__init__.py" = ["D", "F401", "I002"]
+"tests/*" = ["D", "S101"]
+
+[tool.ruff.pydocstyle]
+# Encourage the use of Google-style docstrings
+convention = "google"
+
+[tool.sync-pre-commit-lock.dependency-mapping]
+toml-sort = {"repo" = "https://github.com/pappasam/toml-sort", "rev" = "v${rev}"}
+docformatter = {"repo" = "https://github.com/PyCQA/docformatter", "rev" = "v${rev}"}
+
+[tool.tomlsort]
+sort_first = ["project", "tool"]
+spaces_indent_inline_array = 4 # Matching editorconfig
+trailing_comma_inline_array = true
+overrides."project".first = [
+    "name",
+    "version",
+    "description",
+    "authors",
+    "license",
+    "readme",
+    "requires-python",
+]
+overrides."tool".first = ["pdm"]
+overrides."tool.pdm".first = ["dev-dependencies"]
+
+[build-system]
+build-backend = "pdm.backend"
+requires = ["pdm-backend"]
