@@ -61,7 +61,7 @@ class EncoderDecoderConfig(NamedTuple):
 
     encoder_config: EncoderConfig = EncoderConfig()
     decoder_config: DecoderConfig = DecoderConfig()
-    use_blue: bool = False
+    use_bleu: bool = False
     attention: Literal["dot", "bilinear"] | None = None
     decoding_strategy: DecodingStrategy = DecodingStrategy()
 
