@@ -27,7 +27,7 @@ def train(args: argparse.Namespace) -> None:
             decoder_output_dim=args.decoder_output_dim,
             target_embedding_dim=args.target_embedding_dim,
         ),
-        use_blue=args.use_bleu,
+        use_bleu=args.use_bleu,
         attention=args.attention,
     )
 

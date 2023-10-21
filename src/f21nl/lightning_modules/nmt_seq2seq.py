@@ -83,7 +83,7 @@ class NMTModule(LightningModule):
         self._source_tokenizer = source_tokenizer
         self._target_tokenizer = target_tokenizer
 
-        if config.use_blue:
+        if config.use_bleu:
             self._bleu = BLEUScore()
             self._predictions = []
             self._references = []
