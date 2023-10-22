@@ -4,7 +4,7 @@ from tokenizers import Tokenizer
 from torch import nn
 from torch.nn import Linear
 
-from f21nl.decoding_strategies import DecodingStrategy
+from f21nl.decoding_strategies import GreedyDecoding
 from f21nl.interfaces import EncoderDecoderConfig
 from f21nl.model_components.decoder import NMTDecoder
 from f21nl.model_components.encoder import NMTEncoder
@@ -49,7 +49,10 @@ class NMTEncoderDecoder(nn.Module):
 
         self._attention = config.attention
 
-        self.decode_strategy = DecodingStrategy(config)
+        if config.decoding_strategy.name == "greedy":
+            self.decode_strategy = GreedyDecoding()
+        else:
+            raise NotImplementedError("You still haven't implemented your decoding strategy!")
 
     def take_step(
         self, last_predictions: torch.Tensor, state: dict[str, torch.Tensor]

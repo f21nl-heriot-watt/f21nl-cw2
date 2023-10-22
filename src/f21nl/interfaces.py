@@ -48,7 +48,7 @@ class DecoderConfig(NamedTuple):
     target_embedding_dim: int = 50
 
 
-class DecodingStrategy(NamedTuple):
+class DecodingStrategyConfig(NamedTuple):
     """Decoding Strategy config."""
 
     name: Literal["greedy", "top_k", "top_p"] = "greedy"
@@ -63,7 +63,7 @@ class EncoderDecoderConfig(NamedTuple):
     decoder_config: DecoderConfig = DecoderConfig()
     use_bleu: bool = False
     attention: Literal["dot", "bilinear"] | None = None
-    decoding_strategy: DecodingStrategy = DecodingStrategy()
+    decoding_strategy: DecodingStrategyConfig = DecodingStrategyConfig()
 
 
 class TrainConfig(NamedTuple):
