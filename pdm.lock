@@ -3,10 +3,9 @@
 
 [metadata]
 groups = ["default", "lint"]
-cross_platform = true
-static_urls = false
-lock_version = "4.3"
-content_hash = "sha256:a927b6bd984edde751739636ff0db3953c60bef1452979a3be7f56c6c37174c6"
+strategy = ["cross_platform"]
+lock_version = "4.4"
+content_hash = "sha256:c75f6f6411ba3b63e42bce09d91c8b89243d4316b535dec0fc5fd3fd9a77313a"
 
 [[package]]
 name = "aiohttp"

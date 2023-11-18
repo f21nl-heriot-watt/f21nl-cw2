@@ -3,16 +3,16 @@ name = "f21nl-template"
 version = "0.1.0"
 description = "Template for F21NL"
 authors = [
-    {name = "Amit Parekh", email = "7276308+amitkparekh@users.noreply.github.com"},
+    { name = "Amit Parekh", email = "7276308+amitkparekh@users.noreply.github.com" },
 ]
-license = {text = "MIT"}
+license = { text = "MIT" }
 requires-python = ">=3.8"
 dependencies = [
-    "lightning>=2.1.0",
-    "torchmetrics>=1.2.0",
-    "httpx>=0.25.0",
-    "loguru>=0.7.2",
-    "tokenizers>=0.14.1",
+    "lightning==2.1.0",
+    "torchmetrics==1.2.0",
+    "httpx==0.25.0",
+    "loguru==0.7.2",
+    "tokenizers==0.14.1",
 ]
 
 [tool.pdm]
@@ -124,8 +124,8 @@ lines-after-imports = 2
 convention = "google"
 
 [tool.sync-pre-commit-lock.dependency-mapping]
-toml-sort = {"repo" = "https://github.com/pappasam/toml-sort", "rev" = "v${rev}"}
-docformatter = {"repo" = "https://github.com/PyCQA/docformatter", "rev" = "v${rev}"}
+toml-sort = { "repo" = "https://github.com/pappasam/toml-sort", "rev" = "v${rev}" }
+docformatter = { "repo" = "https://github.com/PyCQA/docformatter", "rev" = "v${rev}" }
 
 [tool.tomlsort]
 sort_first = ["project", "tool"]
