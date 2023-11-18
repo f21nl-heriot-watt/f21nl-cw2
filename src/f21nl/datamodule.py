@@ -212,3 +212,11 @@ class Multi30kDataModule(LightningDataModule):
             drop_last=False,
             collate_fn=CollateFn(),
         )
+
+    def on_after_batch_transfer(self, batch: tuple[torch.Tensor | None, ...], dataloader_idx: int) -> ModelInstance:
+        """Convert the batch to a ModelInstance.
+
+        When transfers the batch to the device, the batch is converted to a tuple of tensors from
+        the `ModelInstance` class. This method converts the batch back to a `ModelInstance` object.
+        """
+        return ModelInstance(*batch)
