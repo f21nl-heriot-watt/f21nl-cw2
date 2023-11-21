@@ -51,8 +51,12 @@ class NMTEncoderDecoder(nn.Module):
 
         if config.decoding_strategy.name == "greedy":
             self.decode_strategy = GreedyDecoding()
+        elif config.decoding_strategy.name in {"top_k", "top_p"}:
+            pass
         else:
-            raise NotImplementedError("You still haven't implemented your decoding strategy!")
+            raise NotImplementedError(
+                f"Decoding strategy not supported: {config.decoding_strategy.name}!"
+            )
 
     def take_step(
         self, last_predictions: torch.Tensor, state: dict[str, torch.Tensor]
